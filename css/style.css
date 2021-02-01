@@ -1,8 +1,12 @@
+body {
+  background-color: #f3f3f3;
+}
+
 .wrapper {
   margin: 20px;
 }
 
-.wrapper h2 {
+.wrapper h1 {
   margin-bottom: 20px;
   text-align: center;
 }
@@ -16,6 +20,10 @@
 .wrapper .done-wrapper {
   display: none;
   margin-top: 30px;
+}
+
+.wrapper .done-wrapper h2 {
+  text-align: center;
 }
 
 .wrapper form input[type='text'] {
@@ -47,13 +55,16 @@
 .wrapper .list-group-item .done,
 .wrapper .list-group-item .remove {
   position: relative;
-  top: 3;
+  top: 3px;
   color: green;
   cursor: pointer;
   font-size: 21px;
 }
 
 .wrapper .list-group-item .remove {
+  position: absolute;
+  right: 17px;
+  top: 22px;
   color: red;
 }
 .wrapper .list-group-item .done:hover {
