@@ -2,6 +2,8 @@ const form = document.querySelector('form');
 const todo = document.querySelector('form').todo;
 const listOfTodos = document.querySelector('.list-of-todos');
 const invalidMessage = document.querySelector('.invalid');
+const doneWrapper = document.querySelector('.done-wrapper');
+const listOfDone = document.querySelector('.done-wrapper ul');
 
 // add new todo
 form.addEventListener('submit', addNewTodo);
@@ -15,8 +17,8 @@ function addNewTodo(e) {
   } else {
     // add new todo to the list
     listOfTodos.innerHTML += `<li class='list-group-item'>
-    <i class="far fa-circle done" onclick='done()'></i>
-    ${todoValue}
+      <i class="far fa-circle done" onclick='doneTodo("${todoValue}")'></i>
+      ${todoValue}
     </li>`;
     invalidMessage.style.display = 'none';
   }
@@ -24,6 +26,7 @@ function addNewTodo(e) {
   form.reset();
 }
 
-function done() {
-  console.log('done');
+function doneTodo(value) {
+  listOfDone.innerHTML += `<li class='list-group-item'>${value}</li>`;
+  doneWrapper.style.display = 'block';
 }
