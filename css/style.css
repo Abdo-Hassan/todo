@@ -18,10 +18,6 @@
   margin-top: 30px;
 }
 
-.wrapper .done-wrapper h2 {
-  text-align: left;
-}
-
 .wrapper form input[type='text'] {
   width: 20% !important;
   margin-right: 20px;
@@ -44,13 +40,21 @@
   border-top-width: 1px;
   margin: 13px 0 0;
 }
+.wrapper .done-wrapper .list-group-item {
+  text-decoration: line-through;
+}
 
-.wrapper .list-group-item .done {
+.wrapper .list-group-item .done,
+.wrapper .list-group-item .remove {
   position: relative;
   top: 3;
   color: green;
   cursor: pointer;
   font-size: 21px;
+}
+
+.wrapper .list-group-item .remove {
+  color: red;
 }
 .wrapper .list-group-item .done:hover {
   background-color: rgba(163, 163, 163, 0.28);
