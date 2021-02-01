@@ -5,6 +5,8 @@ const invalidMessage = document.querySelector('.invalid');
 const doneWrapper = document.querySelector('.done-wrapper');
 const listOfDone = document.querySelector('.done-wrapper ul');
 
+let newTodo;
+
 // add new todo
 form.addEventListener('submit', addNewTodo);
 function addNewTodo(e) {
@@ -16,11 +18,14 @@ function addNewTodo(e) {
     invalidMessage.style.display = 'block';
   } else {
     // add new todo to the list
-    listOfTodos.innerHTML += `<li class='list-group-item'>
-      <i class="far fa-circle done" onclick='doneTodo("${todoValue}")'></i>
+    newTodo = document.createElement('li');
+    newTodo.textContent = todoValue;
+    newTodo.className = 'list-group-item';
+    newTodo.innerHTML = `<i class="far fa-circle done" onclick='doneTodo("${todoValue}")'></i>
       ${todoValue}
-      <i class="far fa-trash-alt remove" onclick='removeTodo()'></i>
-    </li>`;
+      <i class="far fa-trash-alt remove" onclick='removeTodo()'></i>`;
+    console.log(newTodo);
+    listOfTodos.appendChild(newTodo);
     invalidMessage.style.display = 'none';
   }
   // reset form value
@@ -30,9 +35,10 @@ function addNewTodo(e) {
 function doneTodo(value) {
   console.log(value);
   listOfDone.innerHTML += `<li class='list-group-item'>${value}</li>`;
+  listOfTodos.removeChild(newTodo);
   doneWrapper.style.display = 'block';
 }
 
 function removeTodo() {
-  console.log('removed');
+  listOfTodos.removeChild(newTodo);
 }

@@ -29,6 +29,8 @@ body {
 .wrapper form input[type='text'] {
   width: 20% !important;
   margin-right: 20px;
+  box-shadow: none;
+  padding: 10px 13px;
 }
 
 .wrapper .list-group {
