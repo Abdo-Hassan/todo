@@ -16,7 +16,27 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
-    <h1>test</h1>
+    <div class="wrapper">
+      <div class="container">
+        <!-- title -->
+        <h2>Todo app</h2>
+        <!-- add new todo -->
+        <form>
+          <div class="todo-wrapper">
+            <input
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Add new to do"
+              name="todo"
+            />
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+        <ul class="list-group list-of-todos"></ul>
+      </div>
+    </div>
   </body>
   <!-- jquery cdn -->
   <script
