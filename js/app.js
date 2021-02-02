@@ -4,57 +4,66 @@ const listOfTodos = document.querySelector('.list-of-todos');
 const invalidMessage = document.querySelector('.invalid');
 const doneWrapper = document.querySelector('.done-wrapper');
 const listOfDone = document.querySelector('.done-wrapper ul');
-// add new todo
-form.addEventListener('submit', addNewTodo);
-function addNewTodo(e) {
+let todos = [
+  { id: 1, todo: 'have breafast' },
+  { id: 2, todo: 'go to work' },
+  { id: 3, todo: 'sleep well' },
+];
+
+form.addEventListener('submit', addTodo);
+function addTodo(e) {
   e.preventDefault();
-  let todoValue = form.todo.value;
-  // if submit without value
-  if (todoValue === '') {
+  //  input value
+  let todoValue = todo.value;
+  if (todoValue == '') {
     // show alert message
     invalidMessage.style.display = 'block';
   } else {
-    // create li
-    let newTodo = document.createElement('li');
-    newTodo.className = 'list-group-item';
-    // create done todo button
-    let doneButton = document.createElement('i');
-    doneButton.className = 'far fa-circle done';
-    doneTodo(doneButton, newTodo);
-
-    // create delete todo button
-    let removeButton = document.createElement('i');
-    removeButton.className = 'far fa-trash-alt remove';
-    removeTodo(removeButton, newTodo);
-
-    // create todo value
-    let newTodoValue = document.createElement('span');
-    newTodoValue.textContent = todoValue;
-
-    // organize todo item
-    newTodo.appendChild(newTodoValue);
-    newTodo.insertBefore(doneButton, newTodoValue);
-    newTodo.appendChild(removeButton);
-
-    // add todo item to list of todos
-    listOfTodos.appendChild(newTodo);
+    // get last id of todos
+    let newId = todos.length ? todos[todos.length - 1].id : 0;
+    // add new todo to list of todos
+    let newTodo = { id: ++newId, todo: todoValue };
+    todos.push(newTodo);
+    listOfTodos.innerHTML += `<li class='list-group-item'>
+    <i class="far fa-circle done" onclick='doneTodo("${newTodo}")'></i>
+    ${todoValue}
+    <i class="far fa-trash-alt remove" onclick='removeTodo("${newId}")'></i>
+    </li>`;
     invalidMessage.style.display = 'none';
   }
-  // reset form value
+  // reset form
   form.reset();
 }
 
-// show done todos
-function doneTodo(doneButton, item) {
-  doneButton.addEventListener('click', () => {
-    item.remove();
-    doneWrapper.style.display = 'block';
-    listOfDone.innerHTML += `<li class='list-group-item'>${item.textContent}</li>`;
+function showTodos() {
+  todos.forEach((todo) => {
+    listOfTodos.innerHTML += `<li class='list-group-item'>
+      <i class="far fa-circle done" onclick='doneTodo("${todo}")'></i>
+      ${todo.todo}
+      <i class="far fa-trash-alt remove" onclick='removeTodo("${todo.id}")'></i>
+    </li>`;
   });
 }
+
+window.onload = () => {
+  showTodos();
+};
+
+// show done todos
+function doneTodo(item) {
+  // doneWrapper.style.display = 'block';
+  // listOfDone.innerHTML += `<li class='list-group-item'>${item.todo}</li>`;
+}
 // remove todos
-function removeTodo(removeButton, item) {
-  removeButton.addEventListener('click', () => {
-    item.remove();
-  });
+function removeTodo(id) {
+  console.log(id);
+  let idIndex = todos
+    .map((todo) => {
+      return todo.id;
+    })
+    .indexOf(+id);
+  console.log('index', idIndex);
+  todos.splice(idIndex, 1);
+  console.log(todos);
+  listOfTodos.removeChild(listOfTodos.childNodes[idIndex]);
 }

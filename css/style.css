@@ -37,6 +37,9 @@ body {
   align-items: center;
   margin-top: 20px;
 }
+.wrapper button {
+  padding: 8px 17px;
+}
 
 .wrapper .invalid {
   display: none;
