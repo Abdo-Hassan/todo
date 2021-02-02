@@ -24,6 +24,9 @@ function addTodo(e) {
     // add new todo to list of todos
     let newTodo = { id: ++newId, todo: todoValue };
     todos.push(newTodo);
+    // save to localStorage
+    localStorage.setItem('todos', JSON.stringify(todos));
+    // add to todos list
     listOfTodos.innerHTML += `<li class='list-group-item'>
     <i class="far fa-circle done" onclick='doneTodo("${newTodo.todo}-${newTodo.id}")'></i>
     ${todoValue}
@@ -36,18 +39,26 @@ function addTodo(e) {
 }
 
 function showTodos() {
-  todos.forEach((todo) => {
-    listOfTodos.innerHTML += `<li class='list-group-item'>
-      <i class="far fa-circle done" onclick='doneTodo("${todo.todo}-${todo.id}")'></i>
-      ${todo.todo}
-      <i class="far fa-trash-alt remove" onclick='removeTodo("${todo.id}")'></i>
-    </li>`;
-  });
+  let savedTodos = JSON.parse(localStorage.getItem('todos'));
+  console.log(savedTodos);
+  if (savedTodos && savedTodos.length > 0) {
+    savedTodos.forEach((todo) => {
+      listOfTodos.innerHTML += `<li class='list-group-item'>
+        <i class="far fa-circle done" onclick='doneTodo("${todo.todo}-${todo.id}")'></i>
+        ${todo.todo}
+        <i class="far fa-trash-alt remove" onclick='removeTodo("${todo.id}")'></i>
+      </li>`;
+    });
+  } else {
+    todos.forEach((todo) => {
+      listOfTodos.innerHTML += `<li class='list-group-item'>
+        <i class="far fa-circle done" onclick='doneTodo("${todo.todo}-${todo.id}")'></i>
+        ${todo.todo}
+        <i class="far fa-trash-alt remove" onclick='removeTodo("${todo.id}")'></i>
+      </li>`;
+    });
+  }
 }
-
-window.onload = () => {
-  showTodos();
-};
 
 // show done todos
 function doneTodo(todoInfo) {
@@ -79,3 +90,7 @@ function removeTodo(id) {
   todos.splice(idIndex, 1);
   listOfTodos.removeChild(listOfTodos.childNodes[idIndex]);
 }
+
+window.onload = () => {
+  showTodos();
+};
