@@ -27,7 +27,7 @@ body {
 }
 
 .wrapper form input[type='text'] {
-  width: 20% !important;
+  width: 30% !important;
   margin-right: 20px;
   box-shadow: none;
   padding: 10px 13px;
@@ -82,18 +82,19 @@ body {
   -o-border-radius: 50%;
 }
 
-@media only screen and (max-width: 800px) {
-  .wrapper .list-group-item,
-  wrapper .invalid {
-    width: 90%;
-  }
-}
 @media only screen and (max-width: 600px) {
   .wrapper .list-group-item,
   wrapper .invalid {
     width: 100%;
   }
+}
+
+@media only screen and (max-width: 1200px) {
   .wrapper form input[type='text'] {
-    width: 100% !important;
+    width: 60% !important;
+  }
+  .wrapper .list-group-item,
+  .wrapper .invalid {
+    width: 90%;
   }
 }

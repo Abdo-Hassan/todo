@@ -44,6 +44,7 @@ function addNewTodo(e) {
   form.reset();
 }
 
+// show done todos
 function doneTodo(doneButton, item) {
   doneButton.addEventListener('click', () => {
     item.remove();
@@ -51,7 +52,7 @@ function doneTodo(doneButton, item) {
     listOfDone.innerHTML += `<li class='list-group-item'>${item.textContent}</li>`;
   });
 }
-
+// remove todos
 function removeTodo(removeButton, item) {
   removeButton.addEventListener('click', () => {
     item.remove();
