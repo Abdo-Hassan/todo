@@ -25,7 +25,7 @@ function addTodo(e) {
     let newTodo = { id: ++newId, todo: todoValue };
     todos.push(newTodo);
     listOfTodos.innerHTML += `<li class='list-group-item'>
-    <i class="far fa-circle done" onclick='doneTodo("${newTodo}")'></i>
+    <i class="far fa-circle done" onclick='doneTodo("${newTodo.todo}-${newTodo.id}")'></i>
     ${todoValue}
     <i class="far fa-trash-alt remove" onclick='removeTodo("${newId}")'></i>
     </li>`;
@@ -38,7 +38,7 @@ function addTodo(e) {
 function showTodos() {
   todos.forEach((todo) => {
     listOfTodos.innerHTML += `<li class='list-group-item'>
-      <i class="far fa-circle done" onclick='doneTodo("${todo}")'></i>
+      <i class="far fa-circle done" onclick='doneTodo("${todo.todo}-${todo.id}")'></i>
       ${todo.todo}
       <i class="far fa-trash-alt remove" onclick='removeTodo("${todo.id}")'></i>
     </li>`;
@@ -50,20 +50,32 @@ window.onload = () => {
 };
 
 // show done todos
-function doneTodo(item) {
-  // doneWrapper.style.display = 'block';
-  // listOfDone.innerHTML += `<li class='list-group-item'>${item.todo}</li>`;
+function doneTodo(todoInfo) {
+  // -todo id
+  let idTodo = todoInfo.split('-')[1];
+  // -todo value
+  let valueTodo = todoInfo.split('-')[0];
+  // get todo id index
+  let idIndex = todos
+    .map((todo) => {
+      return todo.id;
+    })
+    .indexOf(+idTodo);
+  todos.splice(idIndex, 1);
+  //remove todo from original list
+  listOfTodos.removeChild(listOfTodos.childNodes[idIndex]);
+  //show done todos section
+  doneWrapper.style.display = 'block';
+  // add done todos to done todos list
+  listOfDone.innerHTML += `<li class='list-group-item'>${valueTodo}</li>`;
 }
 // remove todos
 function removeTodo(id) {
-  console.log(id);
   let idIndex = todos
     .map((todo) => {
       return todo.id;
     })
     .indexOf(+id);
-  console.log('index', idIndex);
   todos.splice(idIndex, 1);
-  console.log(todos);
   listOfTodos.removeChild(listOfTodos.childNodes[idIndex]);
 }
