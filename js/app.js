@@ -4,6 +4,8 @@ const listOfTodos = document.querySelector('.list-of-todos');
 const invalidMessage = document.querySelector('.invalid');
 const doneWrapper = document.querySelector('.done-wrapper');
 const listOfDone = document.querySelector('.done-wrapper ul');
+const savedTodos = localStorage.getItem('todos');
+
 let todos = [
   { id: 1, todo: 'have breafast' },
   { id: 2, todo: 'go to work' },
@@ -39,25 +41,16 @@ function addTodo(e) {
 }
 
 function showTodos() {
-  let savedTodos = JSON.parse(localStorage.getItem('todos'));
-  console.log(savedTodos);
-  if (savedTodos && savedTodos.length > 0) {
-    savedTodos.forEach((todo) => {
-      listOfTodos.innerHTML += `<li class='list-group-item'>
-        <i class="far fa-circle done" onclick='doneTodo("${todo.todo}-${todo.id}")'></i>
-        ${todo.todo}
-        <i class="far fa-trash-alt remove" onclick='removeTodo("${todo.id}")'></i>
-      </li>`;
-    });
-  } else {
-    todos.forEach((todo) => {
-      listOfTodos.innerHTML += `<li class='list-group-item'>
-        <i class="far fa-circle done" onclick='doneTodo("${todo.todo}-${todo.id}")'></i>
-        ${todo.todo}
-        <i class="far fa-trash-alt remove" onclick='removeTodo("${todo.id}")'></i>
-      </li>`;
-    });
-  }
+  todos = savedTodos && savedTodos.length > 0 ? JSON.parse(savedTodos) : todos;
+  todos.forEach((todo) => {
+    listOfTodos.innerHTML += `<li class='list-group-item'>
+          <i class="far fa-circle done" onclick='doneTodo("${todo.todo}-${todo.id}")'></i>
+          ${todo.todo}
+          <i class="far fa-trash-alt remove" onclick='removeTodo("${todo.id}")'></i>
+        </li>`;
+  });
+
+  console.log('todos', todos);
 }
 
 // show done todos
@@ -72,7 +65,7 @@ function doneTodo(todoInfo) {
       return todo.id;
     })
     .indexOf(+idTodo);
-  todos.splice(idIndex, 1);
+
   //remove todo from original list
   listOfTodos.removeChild(listOfTodos.childNodes[idIndex]);
   //show done todos section
