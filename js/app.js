@@ -49,12 +49,12 @@ function showTodos() {
           <i class="far fa-trash-alt remove" onclick='removeTodo("${todo.id}")'></i>
         </li>`;
   });
-
-  console.log('todos', todos);
 }
 
 // show done todos
 function doneTodo(todoInfo) {
+  console.log(todos);
+  todos = savedTodos && savedTodos.length > 0 ? JSON.parse(savedTodos) : todos;
   // -todo id
   let idTodo = todoInfo.split('-')[1];
   // -todo value
@@ -65,7 +65,7 @@ function doneTodo(todoInfo) {
       return todo.id;
     })
     .indexOf(+idTodo);
-
+  todos.splice(idIndex, 1);
   //remove todo from original list
   listOfTodos.removeChild(listOfTodos.childNodes[idIndex]);
   //show done todos section
