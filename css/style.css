@@ -84,3 +84,12 @@ body {
     width: 90%;
   }
 }
+@media only screen and (max-width: 600px) {
+  .wrapper .list-group-item,
+  wrapper .invalid {
+    width: 100%;
+  }
+  .wrapper form input[type='text'] {
+    width: 100% !important;
+  }
+}

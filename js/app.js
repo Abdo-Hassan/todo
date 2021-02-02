@@ -35,10 +35,10 @@ function addNewTodo(e) {
 function doneTodo(value) {
   console.log(value);
   listOfDone.innerHTML += `<li class='list-group-item'>${value}</li>`;
-  listOfTodos.removeChild(newTodo);
+  newTodo.remove();
   doneWrapper.style.display = 'block';
 }
 
 function removeTodo() {
-  listOfTodos.removeChild(newTodo);
+  newTodo.remove();
 }
