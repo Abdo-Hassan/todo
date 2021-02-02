@@ -69,6 +69,10 @@ body {
   top: 22px;
   color: red;
 }
+
+.wrapper .list-group-item span {
+  margin-left: 6px;
+}
 .wrapper .list-group-item .done:hover {
   background-color: rgba(163, 163, 163, 0.28);
   border-radius: 50%;

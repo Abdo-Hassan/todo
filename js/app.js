@@ -20,6 +20,7 @@ function addNewTodo(e) {
     // create done todo button
     let doneButton = document.createElement('i');
     doneButton.className = 'far fa-circle done';
+    doneTodo(doneButton, newTodo);
 
     // create delete todo button
     let removeButton = document.createElement('i');
@@ -43,10 +44,12 @@ function addNewTodo(e) {
   form.reset();
 }
 
-function doneTodo(value) {
-  console.log(value);
-  listOfDone.innerHTML += `<li class='list-group-item'>${value}</li>`;
-  doneWrapper.style.display = 'block';
+function doneTodo(doneButton, item) {
+  doneButton.addEventListener('click', () => {
+    item.remove();
+    doneWrapper.style.display = 'block';
+    listOfDone.innerHTML += `<li class='list-group-item'>${item.textContent}</li>`;
+  });
 }
 
 function removeTodo(removeButton, item) {
