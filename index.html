@@ -37,7 +37,10 @@
               name="todo"
               autofocus
             />
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" class="btn btn-primary">Add todo</button>
+            <button id="delete-list" type="button" class="btn btn-dark m-2">
+              Clear list
+            </button>
           </div>
         </form>
         <div class="alert alert-danger invalid" role="alert">
@@ -46,7 +49,12 @@
         <ul class="list-group list-of-todos"></ul>
         <div class="done-wrapper">
           <hr />
-          <h2>Done todos</h2>
+          <div class="done-info">
+            <h2>Done todos</h2>
+            <button id="delete-done" type="button" class="btn btn-dark m-2">
+              Clear done todos
+            </button>
+          </div>
           <ul class="list-group list-of-todos"></ul>
         </div>
       </div>

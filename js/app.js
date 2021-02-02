@@ -5,9 +5,11 @@ const invalidMessage = document.querySelector('.invalid');
 const doneWrapper = document.querySelector('.done-wrapper');
 const listOfDone = document.querySelector('.done-wrapper ul');
 const savedTodos = localStorage.getItem('todos');
+const deleteListButton = document.getElementById('delete-list');
+const deleteDoneButton = document.getElementById('delete-done');
 
 let todos = [
-  { id: 1, todo: 'have breafast' },
+  { id: 1, todo: 'have breakfast' },
   { id: 2, todo: 'go to work' },
   { id: 3, todo: 'sleep well' },
 ];
@@ -27,11 +29,12 @@ function addTodo(e) {
     let newTodo = { id: ++newId, todo: todoValue };
     todos.push(newTodo);
     // save to localStorage
-    localStorage.setItem('todos', JSON.stringify(todos));
+    // localStorage.setItem('todos', JSON.stringify(todos));
     // add to todos list
     listOfTodos.innerHTML += `<li class='list-group-item'>
     <i class="far fa-circle done" onclick='doneTodo("${newTodo.todo}-${newTodo.id}")'></i>
     ${todoValue}
+    <i class="far fa-edit edit" onclick='editTodo("${newTodo.todo}-${newTodo.id}")'></i>
     <i class="far fa-trash-alt remove" onclick='removeTodo("${newId}")'></i>
     </li>`;
     invalidMessage.style.display = 'none';
@@ -41,11 +44,12 @@ function addTodo(e) {
 }
 
 function showTodos() {
-  todos = savedTodos && savedTodos.length > 0 ? JSON.parse(savedTodos) : todos;
+  // -todos = savedTodos && savedTodos.length > 0 ? JSON.parse(savedTodos) : todos;
   todos.forEach((todo) => {
     listOfTodos.innerHTML += `<li class='list-group-item'>
           <i class="far fa-circle done" onclick='doneTodo("${todo.todo}-${todo.id}")'></i>
           ${todo.todo}
+          <i class="far fa-edit edit" onclick='editTodo("${todo.todo}-${todo.id}")'></i>
           <i class="far fa-trash-alt remove" onclick='removeTodo("${todo.id}")'></i>
         </li>`;
   });
@@ -54,7 +58,7 @@ function showTodos() {
 // show done todos
 function doneTodo(todoInfo) {
   console.log(todos);
-  todos = savedTodos && savedTodos.length > 0 ? JSON.parse(savedTodos) : todos;
+  // -todos = savedTodos && savedTodos.length > 0 ? JSON.parse(savedTodos) : todos;
   // -todo id
   let idTodo = todoInfo.split('-')[1];
   // -todo value
@@ -73,6 +77,16 @@ function doneTodo(todoInfo) {
   // add done todos to done todos list
   listOfDone.innerHTML += `<li class='list-group-item'>${valueTodo}</li>`;
 }
+
+// edit todo
+function editTodo(todoInfo) {
+  let valueTodo = todoInfo.split('-')[0];
+  let editInput = document.createElement('input');
+  editInput.setAttribute('value', valueTodo);
+  editInput.className = 'form-control';
+  listOfTodos.appendChild(editInput);
+}
+
 // remove todos
 function removeTodo(id) {
   let idIndex = todos
@@ -87,3 +101,19 @@ function removeTodo(id) {
 window.onload = () => {
   showTodos();
 };
+
+// delete all todo list
+deleteListButton.addEventListener('click', deleteList);
+function deleteList() {
+  todos = [];
+  listOfTodos.innerHTML = '';
+  // localStorage.removeItem('todos');
+}
+
+// delete all todo list
+deleteDoneButton.addEventListener('click', deleteDone);
+function deleteDone() {
+  listOfDone.innerHTML = '';
+  doneWrapper.style.display = 'none';
+  // localStorage.removeItem('done');
+}

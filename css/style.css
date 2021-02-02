@@ -21,6 +21,11 @@ body {
   display: none;
   margin-top: 30px;
 }
+.wrapper .done-wrapper .done-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
 
 .wrapper .done-wrapper h2 {
   text-align: center;
@@ -47,7 +52,8 @@ body {
   margin: 20px auto 0;
 }
 
-.wrapper .list-group-item {
+.wrapper .list-group-item,
+.wrapper .list-group input {
   width: 50%;
   padding: 17px 13px;
   border-top-width: 1px;
@@ -71,6 +77,14 @@ body {
   right: 17px;
   top: 22px;
   color: red;
+}
+.wrapper .list-group-item .edit {
+  position: absolute;
+  color: #3f51b5;
+  right: 47px;
+  top: 22px;
+  font-size: 19px;
+  cursor: pointer;
 }
 
 .wrapper .list-group-item span {
