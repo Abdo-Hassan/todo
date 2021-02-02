@@ -4,9 +4,6 @@ const listOfTodos = document.querySelector('.list-of-todos');
 const invalidMessage = document.querySelector('.invalid');
 const doneWrapper = document.querySelector('.done-wrapper');
 const listOfDone = document.querySelector('.done-wrapper ul');
-
-let newTodo;
-
 // add new todo
 form.addEventListener('submit', addNewTodo);
 function addNewTodo(e) {
@@ -17,14 +14,28 @@ function addNewTodo(e) {
     // show alert message
     invalidMessage.style.display = 'block';
   } else {
-    // add new todo to the list
-    newTodo = document.createElement('li');
-    newTodo.textContent = todoValue;
+    // create li
+    let newTodo = document.createElement('li');
     newTodo.className = 'list-group-item';
-    newTodo.innerHTML = `<i class="far fa-circle done" onclick='doneTodo("${todoValue}")'></i>
-      ${todoValue}
-      <i class="far fa-trash-alt remove" onclick='removeTodo()'></i>`;
-    console.log(newTodo);
+    // create done todo button
+    let doneButton = document.createElement('i');
+    doneButton.className = 'far fa-circle done';
+
+    // create delete todo button
+    let removeButton = document.createElement('i');
+    removeButton.className = 'far fa-trash-alt remove';
+    removeTodo(removeButton, newTodo);
+
+    // create todo value
+    let newTodoValue = document.createElement('span');
+    newTodoValue.textContent = todoValue;
+
+    // organize todo item
+    newTodo.appendChild(newTodoValue);
+    newTodo.insertBefore(doneButton, newTodoValue);
+    newTodo.appendChild(removeButton);
+
+    // add todo item to list of todos
     listOfTodos.appendChild(newTodo);
     invalidMessage.style.display = 'none';
   }
@@ -35,10 +46,11 @@ function addNewTodo(e) {
 function doneTodo(value) {
   console.log(value);
   listOfDone.innerHTML += `<li class='list-group-item'>${value}</li>`;
-  newTodo.remove();
   doneWrapper.style.display = 'block';
 }
 
-function removeTodo() {
-  newTodo.remove();
+function removeTodo(removeButton, item) {
+  removeButton.addEventListener('click', () => {
+    item.remove();
+  });
 }
