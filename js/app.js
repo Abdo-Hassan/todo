@@ -5,8 +5,8 @@ const invalidMessage = document.querySelector('.invalid');
 const doneWrapper = document.querySelector('.done-wrapper');
 const listOfDone = document.querySelector('.done-wrapper ul');
 const savedTodos = localStorage.getItem('todos');
-const deleteListButton = document.getElementById('delete-list');
-const deleteDoneButton = document.getElementById('delete-done');
+const clearListButton = document.getElementById('clear-list');
+const clearDoneButton = document.getElementById('clear-done');
 
 let todos = [
   { id: 1, todo: 'have breakfast' },
@@ -29,7 +29,7 @@ function addTodo(e) {
     let newTodo = { id: ++newId, todo: todoValue };
     todos.push(newTodo);
     // save to localStorage
-    // localStorage.setItem('todos', JSON.stringify(todos));
+    localStorage.setItem('todos', JSON.stringify(todos));
     // add to todos list
     listOfTodos.innerHTML += `<li class='list-group-item'>
     <i class="far fa-circle done" onclick='doneTodo("${newTodo.todo}-${newTodo.id}")'></i>
@@ -44,7 +44,6 @@ function addTodo(e) {
 }
 
 function showTodos() {
-  // -todos = savedTodos && savedTodos.length > 0 ? JSON.parse(savedTodos) : todos;
   todos.forEach((todo) => {
     listOfTodos.innerHTML += `<li class='list-group-item'>
           <i class="far fa-circle done" onclick='doneTodo("${todo.todo}-${todo.id}")'></i>
@@ -57,12 +56,12 @@ function showTodos() {
 
 // show done todos
 function doneTodo(todoInfo) {
-  console.log(todos);
-  // -todos = savedTodos && savedTodos.length > 0 ? JSON.parse(savedTodos) : todos;
   // -todo id
   let idTodo = todoInfo.split('-')[1];
   // -todo value
   let valueTodo = todoInfo.split('-')[0];
+  // save to localStorage
+  // localStorage.setItem('done', JSON.stringify(todos));
   // get todo id index
   let idIndex = todos
     .map((todo) => {
@@ -70,6 +69,7 @@ function doneTodo(todoInfo) {
     })
     .indexOf(+idTodo);
   todos.splice(idIndex, 1);
+
   //remove todo from original list
   listOfTodos.removeChild(listOfTodos.childNodes[idIndex]);
   //show done todos section
@@ -103,16 +103,16 @@ window.onload = () => {
 };
 
 // delete all todo list
-deleteListButton.addEventListener('click', deleteList);
-function deleteList() {
+clearListButton.addEventListener('click', clearList);
+function clearList() {
   todos = [];
   listOfTodos.innerHTML = '';
-  // localStorage.removeItem('todos');
+  localStorage.removeItem('todos');
 }
 
 // delete all todo list
-deleteDoneButton.addEventListener('click', deleteDone);
-function deleteDone() {
+clearDoneButton.addEventListener('click', clearDone);
+function clearDone() {
   listOfDone.innerHTML = '';
   doneWrapper.style.display = 'none';
   // localStorage.removeItem('done');
