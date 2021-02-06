@@ -59,8 +59,21 @@ body {
   border-top-width: 1px;
   margin: 13px 0 0;
 }
+
 .wrapper .done-wrapper .list-group-item {
   text-decoration: line-through;
+}
+.wrapper .list-group-item .todo-date,
+.wrapper .done-wrapper .list-group-item .todo-date-done {
+  position: absolute;
+  top: 19px;
+  right: 84px;
+  color: #a19e9e;
+  font-size: 13px;
+}
+
+.wrapper .done-wrapper .list-group-item .todo-date-done {
+  right: 20px;
 }
 
 .wrapper .list-group-item .done,
